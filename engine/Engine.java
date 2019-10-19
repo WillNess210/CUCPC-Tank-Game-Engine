@@ -33,7 +33,17 @@ public class Engine{
             System.out.println("Compiled bot " + this.bots[i].getBotName());
         }
     }
-
+    // RUN A GAME
+    public void run(){
+        int turns = 5;
+        for(int i = 0; i < turns; i++){
+            System.out.println("TURN " + i);
+            for(int j = 0; j < this.bots.length; j++){
+                String result = bots[j].sendAndReceive("Hello", this.getTimelimitMs());
+                System.out.println("bot " + j + ":" + result);
+            }
+        }
+    }
     // CONFIG FUNCS
     public String getGameName(){
         return config.getProperty("game_name");
@@ -42,6 +52,6 @@ public class Engine{
         return Integer.parseInt(config.getProperty("num_players"));
     }
     public long getTimelimitMs(){
-        return Integer.parseInt(config.getProperty("max_turn_length_ms"));
+        return Long.parseLong(config.getProperty("max_turn_length_ms"));
     }
 }
