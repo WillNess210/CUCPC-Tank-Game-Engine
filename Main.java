@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
+import engine.*;
 
 public class Main{
     public static void main(String[] args){
@@ -17,6 +18,7 @@ public class Main{
             
             // START UP ENGINE
             Engine engine = new Engine(config, args, 0);
+            engine.init();
         } catch (FileNotFoundException ex){
             System.out.println("Could not find 'config.properties'");
         } catch (IOException e){
