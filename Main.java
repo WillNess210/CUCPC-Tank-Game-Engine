@@ -13,8 +13,10 @@ public class Main{
             Properties config = new Properties();
             config.load(configFileReader);
             configFileReader.close();
+            // GRAB FILE NAMES
+            
             // START UP ENGINE
-            System.out.println(config.getProperty("num_players"));
+            Engine engine = new Engine(config, args, 0);
         } catch (FileNotFoundException ex){
             System.out.println("Could not find 'config.properties'");
         } catch (IOException e){
