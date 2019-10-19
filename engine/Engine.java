@@ -29,6 +29,7 @@ public class Engine{
         for(int i = 0; i < this.getNumPlayers(); i++){
             this.bots[i] = new BotProcess(this.botFilepaths[i]);
             this.bots[i].compile();
+            this.bots[i].start();
             System.out.println("Compiled bot " + this.bots[i].getBotName());
         }
     }
@@ -39,5 +40,8 @@ public class Engine{
     }
     public int getNumPlayers(){
         return Integer.parseInt(config.getProperty("num_players"));
+    }
+    public long getTimelimitMs(){
+        return Integer.parseInt(config.getProperty("max_turn_length_ms"));
     }
 }
