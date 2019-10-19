@@ -3,6 +3,8 @@ package engine;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 import java.io.BufferedReader;
 import java.io.File;
@@ -62,7 +64,20 @@ public class BotProcess{
     public void start(){
         int langChoice = this.getBotLanguage();
         if(langChoice == Language.JAVA){
+            ProcessBuilder builder = new ProcessBuilder("java", "-cp", this.filepath, this.getMainFileNameJavaCall());
 
+            /*String command = builder.command().get(0);
+            for(int i = 1; i < builder.command().size(); i++){
+                command += " " + builder.command().get(i);
+            }
+            System.out.println(command); */
+            try{
+                this.process = builder.start();
+                this.processIn = process.getOutputStream();
+                this.processOut = process.getInputStream();
+            } catch (IOException e){
+                System.out.println(e.getMessage());
+            }
         }else if(langChoice == Language.CPP){
 
         }else if(langChoice == Language.PYTHON){
@@ -70,9 +85,37 @@ public class BotProcess{
         }
     }
 
+    public String sendAndReceive(String dataToSend, long timeLimit){
+        // SEND DATA
+        try{
+            OutputStreamWriter writer = new OutputStreamWriter(processIn, "UTF-8");
+            writer.write(dataToSend + "\n");
+            writer.flush();
+        } catch (UnsupportedEncodingException e){
+            System.out.println(e.getMessage());
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        // RECEIVE DATA
+        BufferedReader programOutput = new BufferedReader(new InputStreamReader(processOut));
+        long startTime = System.currentTimeMillis();
+        String received = "";
+        try{
+            while(System.currentTimeMillis() - startTime <= timeLimit && (received = programOutput.readLine()) == null);
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        return received.length() > 0 ? received : "timeout";
+    }
     // CONFIG FUNCS
     public String getBotName(){
         return this.bot_config.getProperty("bot_name");
+    }
+    public String getMainFileName(){
+        return this.bot_config.getProperty("main_file");
+    }
+    public String getMainFileNameJavaCall(){
+        return this.bot_config.getProperty("main_file").replaceFirst(".java", "");
     }
     public String getPathToMainFile(){
         return this.filepath + "/" + this.bot_config.getProperty("main_file");
