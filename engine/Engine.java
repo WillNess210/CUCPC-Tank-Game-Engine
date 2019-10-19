@@ -2,6 +2,7 @@ package engine;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
+import game.Game;
 
 public class Engine{
     // ENGINE VARIABLES
@@ -9,6 +10,7 @@ public class Engine{
     private String[] botFilepaths;
     private Properties config;
     private BotProcess[] bots;
+    private Game game;
 
     // CONSTRUCTORS
     public Engine(Properties config, String[] botFilepaths){
@@ -16,12 +18,14 @@ public class Engine{
         this.botFilepaths = botFilepaths;
         this.mapSeed = (new Random()).nextLong();
         this.bots = new BotProcess[this.getNumPlayers()];
+        this.game = new Game();
     }
     public Engine(Properties config, String[] botFilepaths, int mapSeed){
         this.config = config;
         this.botFilepaths = botFilepaths;
         this.mapSeed = mapSeed;
         this.bots = new BotProcess[this.getNumPlayers()];
+        this.game = new Game();
     }
 
     // STARTUP STUFF
@@ -29,17 +33,17 @@ public class Engine{
         for(int i = 0; i < this.getNumPlayers(); i++){
             this.bots[i] = new BotProcess(this.botFilepaths[i]);
             this.bots[i].compile();
-            this.bots[i].start();
             System.out.println("Compiled bot " + this.bots[i].getBotName());
+            this.bots[i].start();
         }
     }
     // RUN A GAME
     public void run(){
-        int turns = 5;
-        for(int i = 0; i < turns; i++){
+        for(int i = 0; i < this.game.MAX_TURNS; i++){
             System.out.println("TURN " + i);
             for(int j = 0; j < this.bots.length; j++){
-                String result = bots[j].sendAndReceive("Hello", this.getTimelimitMs());
+                String result = bots[j].sendAndReceive(game.getStringToSendToBot(j), this.getTimelimitMs());
+                game.updateBot(j, result);
                 System.out.println("bot " + j + ":" + result);
             }
         }

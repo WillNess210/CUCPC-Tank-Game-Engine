@@ -54,7 +54,16 @@ public class BotProcess{
                 System.out.println(e.getMessage());
             }
         }else if(langChoice == Language.CPP){
-
+            // COMPILING
+            try{
+                ProcessBuilder builder = new ProcessBuilder("g++", this.getMainFileName());
+                builder.directory(new File(this.filepath));
+                Process compileProcess = builder.start();
+                while(compileProcess.isAlive());
+                compileProcess.destroy();
+            }catch(IOException e){
+                System.out.println(e.getMessage());
+            }
         }else if(langChoice == Language.PYTHON){
             // NOT NECESSARY
         }
@@ -63,25 +72,24 @@ public class BotProcess{
     // start loads processOut, processIn, process
     public void start(){
         int langChoice = this.getBotLanguage();
+        ProcessBuilder builder = null;
         if(langChoice == Language.JAVA){
-            ProcessBuilder builder = new ProcessBuilder("java", "-cp", this.filepath, this.getMainFileNameJavaCall());
-
-            /*String command = builder.command().get(0);
-            for(int i = 1; i < builder.command().size(); i++){
-                command += " " + builder.command().get(i);
-            }
-            System.out.println(command); */
-            try{
-                this.process = builder.start();
-                this.processIn = process.getOutputStream();
-                this.processOut = process.getInputStream();
-            } catch (IOException e){
-                System.out.println(e.getMessage());
-            }
+            builder = new ProcessBuilder("java", "-cp", this.filepath, this.getMainFileNameJavaCall());
         }else if(langChoice == Language.CPP){
-
+            builder = new ProcessBuilder("./a.out");
+            builder.directory(new File(this.filepath));
         }else if(langChoice == Language.PYTHON){
-            
+            builder = new ProcessBuilder("python", this.filepath +  "/" + this.getMainFileName());
+            //builder.directory(new File(this.filepath));
+        }
+        // start up process & grab streams
+        try{
+            this.process = builder.start();
+            this.processIn = process.getOutputStream();
+            this.processOut = process.getInputStream();
+            System.out.println("Running: " + String.join(" ", builder.command()));
+        } catch (IOException e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -105,7 +113,7 @@ public class BotProcess{
         } catch (IOException e){
             System.out.println(e.getMessage());
         }
-        return received.length() > 0 ? received : "timeout";
+        return (received != null && received.length() > 0) ? received : "timeout";
     }
     // CONFIG FUNCS
     public String getBotName(){

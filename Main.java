@@ -14,8 +14,6 @@ public class Main{
             Properties config = new Properties();
             config.load(configFileReader);
             configFileReader.close();
-            // GRAB FILE NAMES
-            
             // START UP ENGINE
             Engine engine = new Engine(config, args, 0);
             engine.init();
