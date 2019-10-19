@@ -19,6 +19,7 @@ public class Main{
             // START UP ENGINE
             Engine engine = new Engine(config, args, 0);
             engine.init();
+            engine.run();
         } catch (FileNotFoundException ex){
             System.out.println("Could not find 'config.properties'");
         } catch (IOException e){
