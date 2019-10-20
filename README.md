@@ -5,7 +5,19 @@ Internal prototype AI programming competition game for the CU Boulder Competitiv
 
 
 # Instructions  
+Tank Game is played on a 1000 by 500 board with two players controlled by AI. Each player can spawn units, move them, and perform actions with the units.
 ## Game Input - initialization  
+Line 1: numSites : integer representing number of sites on board  
+Next numSites Lines: x y : x and y locations for each site
+Ex:
+```
+5
+500 500
+300 700
+700 300
+100 600
+900 400
+```
 ## Game Input - for each turn  
 Line 1: yourcoins opcoins : two integers showing your current coins and your opponents  
 Line 2: n : Integer of number of units on board currently  
@@ -27,4 +39,8 @@ Your program must output a string of valid commands to take part of in a single 
 Spawn a unit: SPAWN type : type is an integer, 0 for a Rover, 1 for a Tank  
 Move a unit: MOVE id x y : id, x, y are all integers. Bot must be within 50 units of desired target position.  
 Fire a unit: FIRE id x y : id, x, y are all integers. Tank must be within 75 units of desired target position. A tank may not MOVE & FIRE on same turn.  
-Ex: "SPAWN 0,SPAWN 0,MOVE 2 394 600,FIRE 3 400 450"  
+  
+Ex:
+```
+SPAWN 0,SPAWN 0,MOVE 2 394 600,FIRE 3 400 450  
+```
