@@ -79,7 +79,7 @@ public class BotProcess{
             builder = new ProcessBuilder("./a.out");
             builder.directory(new File(this.filepath));
         }else if(langChoice == Language.PYTHON){
-            builder = new ProcessBuilder("python", this.filepath +  "/" + this.getMainFileName());
+            builder = new ProcessBuilder("python3", this.filepath +  "/" + this.getMainFileName());
             //builder.directory(new File(this.filepath));
         }
         // start up process & grab streams
@@ -105,11 +105,13 @@ public class BotProcess{
             System.out.println(e.getMessage());
         }
         // RECEIVE DATA
-        BufferedReader programOutput = new BufferedReader(new InputStreamReader(processOut));
+        BufferedReader programOutput = new BufferedReader(new InputStreamReader(this.processOut));
         long startTime = System.currentTimeMillis();
         String received = "";
         try{
-            while(System.currentTimeMillis() - startTime <= timeLimit && (received = programOutput.readLine()) == null);
+            while(System.currentTimeMillis() - startTime <= timeLimit && (this.processOut.available() == 0 || (received = programOutput.readLine()) == null)){
+                //System.out.println("Waiting " + this.getBotName() + " " + (System.currentTimeMillis() - startTime) + " " + timeLimit);
+            }
         } catch (IOException e){
             System.out.println(e.getMessage());
         }
