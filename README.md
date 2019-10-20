@@ -5,11 +5,15 @@ Internal prototype AI programming competition game for the CU Boulder Competitiv
 
 
 # Instructions  
-Tank Game is played on a 1000 by 500 board with two players controlled by AI. Each player can spawn units, move them, and perform actions with the units. There are two types of units: Rovers, and Tanks. The field is also scattered with Sites, each of which contain coins that your rovers can mine. When your rovers are near a site, it will begin mining and filling up it's inventory, to a maximum of 100 coins. If the rover returns to your base, it's inventory will be emptied and the player will gain those coins. Each player can spend coins to buy more units, 25 for Rovers, and 75 for Tanks. Tanks are the other game unit, and they can move (with less range than the rovers) but they can also fire. If their shot hits a unit, the hit unit will be remov, ed from the game.  
+Tank Game is played on a 1000 by 500 board with two players controlled by AI. Each player can spawn units, move them, and perform actions with the units. There are two types of units: Rovers, and Tanks. The field is also scattered with Sites, each of which contain coins that your rovers can mine. When your rovers are near a site, it will begin mining and filling up it's inventory, to a maximum of 100 coins. If the rover returns to your base, it's inventory will be emptied and the player will gain those coins. Each player can spend coins to buy more units, 25 for Rovers, and 75 for Tanks. Tanks are the other game unit, and they can move (with less range than the rovers) but they can also fire. If their shot hits a unit, the hit unit will be removed from the game. The only other way for units to be removed from the game is if they are commanded to move off the map.  
 
-Each turn, each player can spawn units, move units, and fire tanks. A tank cannot be moved and fired on the same turn - the engine will process whichever command is sent first. The engine will first process all fire commands, followed by move commands, followed by spawn commands.
+Each turn, each player can spawn units, move units, and fire tanks. A tank cannot be moved and fired on the same turn - the engine will process whichever command is sent first. The engine will first process all fire commands, followed by move commands, followed by spawn commands.  
+
+The map is 1000 by 500. Point (0,0) is in the upper left of the map, with (1000, 500) being in the bottom right. Player 0's home base spans from (0, 0) to (200, 500), with it's spawnpoint at (100, 250). Player 1's home base spans from (800, 0) to (1000, 500) with it's spawnpoint at (900, 250). A rover can drop off it's inventory anywhere in the home base, and it will happen automatically as long as they're inside the range. All units spawn at the spawnpoint, and tank shots can not be fired into a home base.  
+
 ## Game Input - initialization  
-Line 1: numSites : integer representing number of sites on board  
+Line 1: yourId : 0 indicates that your home base is on the left side of the map, 1 indicates that it's on the right side.  
+Line 2: numSites : integer representing number of sites on board  
 Next numSites Lines: x y : x and y locations for each site  
 Ex:  
 ```
