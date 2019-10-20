@@ -1,7 +1,7 @@
 package game;
 
 public class Unit extends Point{
-    private int id, type;
+    private int id, type, param1;
 
     public Unit(){
         this.id = -1;
@@ -28,5 +28,12 @@ public class Unit extends Point{
     }
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getParam1(){
+        return this.param1;
+    }
+    public void setParam1(int param1){
+        this.param1 = param1;
     }
 }

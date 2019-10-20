@@ -18,14 +18,14 @@ public class Engine{
         this.botFilepaths = botFilepaths;
         this.mapSeed = (new Random()).nextLong();
         this.bots = new BotProcess[this.getNumPlayers()];
-        this.game = new Game();
+        this.game = new Game(this.mapSeed);
     }
     public Engine(Properties config, String[] botFilepaths, int mapSeed){
         this.config = config;
         this.botFilepaths = botFilepaths;
         this.mapSeed = mapSeed;
         this.bots = new BotProcess[this.getNumPlayers()];
-        this.game = new Game();
+        this.game = new Game(this.mapSeed);
     }
 
     // STARTUP STUFF

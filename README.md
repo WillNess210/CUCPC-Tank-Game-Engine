@@ -17,6 +17,7 @@ Line 2: numSites : integer representing number of sites on board
 Next numSites Lines: x y : x and y locations for each site  
 Ex:  
 ```
+0
 5
 500 500
 300 700

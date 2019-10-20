@@ -1,17 +1,21 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import constants.UnitType;
 
 public class Player{
-    private int coins;
+    private int coins, id;
     private Map<Integer, Unit> units;
-    public Player(){
+    public Player(int id){
+        this.id = id;
         this.coins = 100;
         this.units = new HashMap<Integer, Unit>();
     }
-
+    public List<Unit> getUnits(){
+        return new ArrayList<Unit>(this.units.values());
+    }
     public Unit getUnit(int id){
         return units.get(id);
     }
@@ -22,6 +26,9 @@ public class Player{
     public boolean removeUnit(int id){
         units.remove(id);
         return true;
+    }
+    public int numUnits(){
+        return this.units.size();
     }
     public boolean canAfford(int cost){
         return cost >= this.coins;
@@ -34,4 +41,21 @@ public class Player{
         }
         return false;
     }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 }
