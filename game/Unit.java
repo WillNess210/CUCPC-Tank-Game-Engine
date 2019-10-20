@@ -2,7 +2,7 @@ package game;
 
 public class Unit extends Point{
     private int id, type, param1;
-
+    private boolean actionUsedThisTurn;
     public Unit(){
         this.id = -1;
         this.type = -1;
@@ -35,5 +35,9 @@ public class Unit extends Point{
     }
     public void setParam1(int param1){
         this.param1 = param1;
+    }
+
+    public double dist(Point b){
+        return Math.hypot(b.getX() - this.getX(), b.getY() - this.getY());
     }
 }

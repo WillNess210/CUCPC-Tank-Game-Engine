@@ -2,6 +2,7 @@ package game;
 
 import java.util.Random;
 import constants.UnitType;
+import constants.ActionType;
 
 // THIS CLASS WILL HANDLE ALL GAME INFO (taking user input, parsing it to make sure it's correct, updating gamestate, then returning new strings to send)
 public class Game{
@@ -27,6 +28,31 @@ public class Game{
 
     // this method is called when the engine receives info from bots
     public void updateBot(int botid, String resultFromBot){
+        String[] commandsUnparsed = resultFromBot.split(",");
+        Command[] commands = new Command[commandsUnparsed.length];
+        for(int i = 0; i < commands.length; i++){
+            commands[i] = new Command(commandsUnparsed[i]);
+        }
+        // FIRE ACTIONS FIRST
+        for(int i = 0; i < commands.length; i++){
+            if(commands[i].getType() == ActionType.FIRE){
+                // look up unit
+                Unit target = players[botid].getUnit(commands[i].getParam1());
+                Point hitPoint = new Point(commands[i].getParam2(), commands[i].getParam3());
+                if(target != null && target.getType() == UnitType.TANK && target.getParam1() == 0 && target.dist(hitPoint) <= 75){
+                    // TODO destruction logic
+                    target.setParam1(5);
+                }
+            }
+        }
+        // MOVE ACTIONS NEXT
+        for(int i = 0; i < commands.length; i++){
+            if(commands[i].getType() == ActionType.MOVE){
+                // look up unit
+                Unit target = players[botid].getUnit(commands[i].getParam1());
+                Point movePoint = new Point(commands[i].getParam2(), commands[i].getParam3());
+            }
+        }
     }
 
     // this method is called to get the initialization string

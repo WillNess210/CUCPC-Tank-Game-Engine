@@ -5,7 +5,7 @@ Internal prototype AI programming competition game for the CU Boulder Competitiv
 
 
 # Instructions  
-Tank Game is played on a 1000 by 500 board with two players controlled by AI. Each player can spawn units, move them, and perform actions with the units. There are two types of units: Rovers, and Tanks. The field is also scattered with Sites, each of which contain coins that your rovers can mine. When your rovers are near a site, it will begin mining and filling up it's inventory, to a maximum of 100 coins. If the rover returns to your base, it's inventory will be emptied and the player will gain those coins. Each player can spend coins to buy more units, 25 for Rovers, and 75 for Tanks. Tanks are the other game unit, and they can move (with less range than the rovers) but they can also shoot at other units. If their shot hits a unit, the hit unit will be removed from the game. The only other way for units to be removed from the game is if they are commanded to move off the map.  
+Tank Game is played on a 1000 by 500 board with two players controlled by AI. Each player can spawn units, move them, and perform actions with the units. There are two types of units: Rovers, and Tanks. The field is also scattered with Sites, each of which contain coins that your rovers can mine. When your rovers are near a site, it will begin mining and filling up it's inventory, to a maximum of 100 coins. If the rover returns to your base, it's inventory will be emptied and the player will gain those coins. Each player can spend coins to buy more units, 25 for Rovers, and 75 for Tanks. Tanks are the other game unit, and they can move (with less range than the rovers) but they can also shoot at other units with a cooldown of 5 turns. If their shot hits a unit, the hit unit will be removed from the game. The only other way for units to be removed from the game is if they are commanded to move off the map.  
 
 Each turn, each player can spawn units, move units, and fire tanks. A tank cannot be moved and fired on the same turn - the engine will process whichever command is sent first. The engine will first process all fire commands, followed by move commands, followed by spawn commands.  
 
@@ -28,7 +28,7 @@ Ex:
 ## Game Input - for each turn  
 Line 1: yourcoins opcoins : two integers showing your current coins and your opponents  
 Line 2: n : Integer of number of units on board currently  
-Next n Lines: id owner type x y param1 : the id, owner, type, x position, y position, and param1 for each unit. All integers. For rovers, param1 is the number of units stored, and for tanks param1 is 1 if they can fire, and 0 if they can't. Owner is 0 if it's your unit, 1 if it's opponents.
+Next n Lines: id owner type x y param1 : the id, owner, type, x position, y position, and param1 for each unit. All integers. For rovers, param1 is the number of units stored, and for tanks param1 is how many turns until the tank can fire (0 means can fire now). Owner is 0 if it's your unit, 1 if it's opponents.
 Ex:  
 ```
 250 300
