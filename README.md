@@ -5,11 +5,13 @@ Internal prototype AI programming competition game for the CU Boulder Competitiv
 
 
 # Instructions  
-Tank Game is played on a 1000 by 500 board with two players controlled by AI. Each player can spawn units, move them, and perform actions with the units.
+Tank Game is played on a 1000 by 500 board with two players controlled by AI. Each player can spawn units, move them, and perform actions with the units. There are two types of units: Rovers, and Tanks. The field is also scattered with Sites, each of which contain coins that your rovers can mine. When your rovers are near a site, it will begin mining and filling up it's inventory, to a maximum of 100 coins. If the rover returns to your base, it's inventory will be emptied and the player will gain those coins. Each player can spend coins to buy more units, 25 for Rovers, and 75 for Tanks. Tanks are the other game unit, and they can move (with less range than the rovers) but they can also fire. If their shot hits a unit, the hit unit will be remov, ed from the game.  
+
+Each turn, each player can spawn units, move units, and fire tanks. A tank cannot be moved and fired on the same turn - the engine will process whichever command is sent first. The engine will first process all fire commands, followed by move commands, followed by spawn commands.
 ## Game Input - initialization  
 Line 1: numSites : integer representing number of sites on board  
-Next numSites Lines: x y : x and y locations for each site
-Ex:
+Next numSites Lines: x y : x and y locations for each site  
+Ex:  
 ```
 5
 500 500
@@ -35,11 +37,12 @@ Ex:
 
 
 ## Bot Output - for each turn  
-Your program must output a string of valid commands to take part of in a single turn. Possible outputs are:  
+Your program must output a string of valid commands for a single turn. Possible outputs are:  
 Spawn a unit: SPAWN type : type is an integer, 0 for a Rover, 1 for a Tank  
-Move a unit: MOVE id x y : id, x, y are all integers. Bot must be within 50 units of desired target position.  
+Move a unit: MOVE id x y : id, x, y are all integers. Rovers must be within 75 units of desired target position, Tanks must be within 50 units of the desired target position.  
 Fire a unit: FIRE id x y : id, x, y are all integers. Tank must be within 75 units of desired target position. A tank may not MOVE & FIRE on same turn.  
-  
+Do nothing: IDLE : If you'd like to not do any other commands, you can do this  
+
 Ex:
 ```
 SPAWN 0,SPAWN 0,MOVE 2 394 600,FIRE 3 400 450  
