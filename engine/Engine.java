@@ -36,6 +36,12 @@ public class Engine{
             System.out.println("Compiled bot " + this.bots[i].getBotName());
             this.bots[i].start();
         }
+        try{
+            java.util.concurrent.TimeUnit.MILLISECONDS.sleep(this.getInitTime());
+        }catch(InterruptedException e){
+            System.out.println(e.getMessage());
+        }
+        
     }
     // RUN A GAME
     public void run(){
@@ -62,5 +68,8 @@ public class Engine{
     }
     public long getTimelimitMs(){
         return Long.parseLong(config.getProperty("max_turn_length_ms"));
+    }
+    public int getInitTime(){
+        return Integer.parseInt(config.getProperty("init_game_setup_time"));
     }
 }
