@@ -115,6 +115,18 @@ public class BotProcess{
         }
         return (received != null && received.length() > 0) ? received : "timeout";
     }
+    public void send(String dataToSend){
+        // SEND DATA
+        try{
+            OutputStreamWriter writer = new OutputStreamWriter(processIn, "UTF-8");
+            writer.write(dataToSend + "\n");
+            writer.flush();
+        } catch (UnsupportedEncodingException e){
+            System.out.println(e.getMessage());
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
     // CONFIG FUNCS
     public String getBotName(){
         return this.bot_config.getProperty("bot_name");

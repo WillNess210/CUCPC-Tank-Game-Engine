@@ -10,6 +10,10 @@ public class Game{
     public void updateBot(int botid, String resultFromBot){
     }
 
+    // this method is called to get the initialization string
+    public String getGameInit(int botid){
+        return "TODO2";
+    }
     // this method is called to get the game to send game state to the bot
     public String getStringToSendToBot(int botid){
         return "TODO";

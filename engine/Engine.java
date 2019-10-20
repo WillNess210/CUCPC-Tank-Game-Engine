@@ -39,6 +39,11 @@ public class Engine{
     }
     // RUN A GAME
     public void run(){
+        // send init
+        for(int j = 0; j < this.bots.length; j++){
+            bots[j].send(game.getGameInit(j));
+        }
+        // run turns
         for(int i = 0; i < this.game.MAX_TURNS; i++){
             System.out.println("TURN " + i);
             for(int j = 0; j < this.bots.length; j++){
