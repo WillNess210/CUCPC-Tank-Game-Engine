@@ -10,7 +10,7 @@ public class Game{
     private Unit[] sites;
     private Random rand;
 
-    public Game(int mapSeed){
+    public Game(long mapSeed){
         players = new Player[2];
         for(int i = 0; i < players.length; i++){
             players[i] = new Player(i);
