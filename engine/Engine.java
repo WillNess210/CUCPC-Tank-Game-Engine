@@ -44,7 +44,7 @@ public class Engine{
             bots[j].send(game.getGameInit(j));
         }
         // run turns
-        for(int i = 0; i < this.game.MAX_TURNS; i++){
+        for(int i = 0; i < this.game.MAX_TURNS && this.game.isGameOver() == false; i++){
             System.out.println("TURN " + i);
             for(int j = 0; j < this.bots.length; j++){
                 String result = bots[j].sendAndReceive(game.getStringToSendToBot(j), this.getTimelimitMs());
