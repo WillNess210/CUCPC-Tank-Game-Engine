@@ -16,7 +16,8 @@ public class Engine{
     public Engine(Properties config, String[] botFilepaths){
         this.config = config;
         this.botFilepaths = botFilepaths;
-        this.mapSeed = (new Random()).nextLong();
+        Random r = new Random();
+        this.mapSeed = r.nextLong();
         this.bots = new BotProcess[this.getNumPlayers()];
         this.game = new Game(this.mapSeed);
     }
@@ -50,6 +51,7 @@ public class Engine{
             bots[j].send(game.getGameInit(j));
         }
         // run turns
+        game.updateLogHandler();
         for(int i = 0; i < this.game.MAX_TURNS && this.game.isGameOver() == false; i++){
             System.out.println("TURN " + i);
             for(int j = 0; j < this.bots.length; j++){
@@ -57,7 +59,9 @@ public class Engine{
                 game.updateBot(j, result);
                 System.out.println("bot " + j + ":" + result);
             }
+            game.updateLogHandler();
         }
+        game.generateLog();
     }
     // CONFIG FUNCS
     public String getGameName(){

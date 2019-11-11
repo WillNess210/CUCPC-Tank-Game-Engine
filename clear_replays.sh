@@ -1,0 +1,1 @@
+find -name "*.log" -not -path "./bots/*" -delete

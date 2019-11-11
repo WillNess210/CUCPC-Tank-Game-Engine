@@ -40,4 +40,9 @@ public class Unit extends Point{
     public double dist(Point b){
         return Math.hypot(b.getX() - this.getX(), b.getY() - this.getY());
     }
+
+    public String getLogString(int owner){
+        return owner + " " + this.getId() + " " + this.getType() + " " + this.getX() + " " + this.getY() + " " + this.getParam1();
+    }
+
 }

@@ -9,7 +9,7 @@ Tank Game is played on a 1000 by 500 board with two players controlled by AI. Ea
 
 Each turn, each player can spawn units, move units, and fire tanks. A tank cannot be moved and fired on the same turn - the engine will process whichever command is sent first. The engine will first process all fire commands, followed by move commands, followed by spawn commands.  
 
-The map is 1000 by 500. Point (0,0) is in the upper left of the map, with (1000, 500) being in the bottom right. Player 0's home base spans from (0, 0) to (200, 500), with it's spawnpoint at (100, 250). Player 1's home base spans from (800, 0) to (1000, 500) with it's spawnpoint at (900, 250). A rover can drop off it's inventory anywhere in the home base, and it will happen automatically as long as they're inside the range. All units spawn at the spawnpoint, and tank shots can not be fired into a home base.  
+The map is 1000 by 500. Point (0,0) is in the upper left of the map, with (1000, 500) being in the bottom right. Player 0's home base spans from (0, 0) to (100, 500). Player 1's home base spans from (900, 0) to (1000, 500). A rover can drop off it's inventory anywhere in the home base, and it will happen automatically as long as they're inside the range. All units spawn at the spawnpoint, and tank shots can not be fired into a home base.  
 
 ## Game Input - initialization  
 Line 1: yourId : 0 indicates that your home base is on the left side of the map, 1 indicates that it's on the right side.  

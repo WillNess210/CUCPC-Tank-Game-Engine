@@ -10,20 +10,27 @@ public class Game{
     private Player[] players;
     private Unit[] sites;
     private Random rand;
+    public long mapSeed;
+    public LogHandler log;
 
     public Game(long mapSeed){
+        this.mapSeed = mapSeed;
+        rand = new Random(mapSeed);
+        System.out.println("init w/ seed: " + this.mapSeed);
         players = new Player[2];
         for(int i = 0; i < players.length; i++){
-            players[i] = new Player(i);
+            players[i] = new Player(i, rand);
         }
-        rand = new Random(mapSeed);
-        sites = new Unit[4 + rand.nextInt(4) * 2];
+        
+        sites = new Unit[2 + rand.nextInt(2) * 2];
         for(int i = 0; i < sites.length; i += 2){
             int nX = 300 + rand.nextInt(401);
-            int nY = rand.nextInt(500);
+            int nY = 100 + rand.nextInt(300);
             sites[i] = new Unit(i, UnitType.SITE, nX, nY);
             sites[i + 1] = new Unit(i + 1, UnitType.SITE, 1000 - nX, 500 - nY);
         }
+
+        this.log = new LogHandler();
     }
 
     // this method is called when the engine receives info from bots
@@ -93,11 +100,33 @@ public class Game{
 
     // return ID of winning bot, -1 when no winner has been established yet
     public int getWinner(){
-        return 0;
+        return isGameOver() ? (players[0].getScore() == players[1].getScore() ? (players[0].getScore() > players[1].getScore() ? 0 : 1) : 2) : -1;
     }
-
+    public String getScores(){
+        return players[0].getScore() + " " + players[1].getScore();
+    }
     public int getTotalNumUnits(){
         return players[0].numUnits() + players[1].numUnits();
+    }
+
+    public String[] getSitesStrings(){
+        String[] toRet = new String[this.sites.length];
+        for(int i = 0; i < toRet.length; i++){
+            toRet[i] = this.sites[i].getX() + " " + this.sites[i].getY();
+        }
+        return toRet;
+    }
+
+    public Player[] getPlayers(){
+        return this.players;
+    }
+
+    public void updateLogHandler(){
+        this.log.addTurn(this);
+    }
+
+    public void generateLog(){
+        this.log.generateLogFile(this);
     }
 
 }

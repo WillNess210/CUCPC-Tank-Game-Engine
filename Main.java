@@ -15,7 +15,7 @@ public class Main{
             config.load(configFileReader);
             configFileReader.close();
             // START UP ENGINE
-            Engine engine = new Engine(config, args, 0);
+            Engine engine = new Engine(config, args);
             engine.init();
             engine.run();
         } catch (FileNotFoundException ex){

@@ -2,8 +2,11 @@
 ```
 Line 1: winner : 0 or 1, based on who won, 2 if tie
 Line 2: 0_score 1_score : integers representing score
-Line 3: numTurns : number of turns the game went on for
-for numTurns turns:
+Line 3: numSites : number of sites existing in the game
+for numSites:
+    Line 1: x y : location of site
+Next line: numTurns : number of turns the game went on for
+for numTurns:
     Line 1: numUnits
     for numUnits:
         Line: owner id type x y param1
@@ -13,6 +16,9 @@ ex:
 ```
 0
 189 132
+2
+400 200
+600 400
 5
 2
 0 0 0 100 250 0
