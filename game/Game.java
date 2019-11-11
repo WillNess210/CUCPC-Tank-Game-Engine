@@ -54,10 +54,12 @@ public class Game{
         }
         // MOVE ACTIONS NEXT
         for(int i = 0; i < commands.length; i++){
-            if(commands[i].getType() == ActionType.MOVE){
+            Command com = commands[i];
+            if(com.getType() == ActionType.MOVE){
                 // look up unit
-                Unit target = players[botid].getUnit(commands[i].getParam1());
-                Point movePoint = new Point(commands[i].getParam2(), commands[i].getParam3());
+                Unit target = players[botid].getUnit(com.getParam1());
+                Point movePoint = new Point(com.getParam2(), com.getParam3());
+                target.moveTowards(movePoint);
             }
         }
     }

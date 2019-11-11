@@ -24,4 +24,26 @@ public class Point{
     public void setY(int y) {
         this.y = y;
     }
+
+    public double dist(Point b){
+        return Math.hypot(b.x - this.x, b.y - this.y);
+    }
+
+    public double dist2(Point b){
+        int xx = b.getX() - this.getX();
+        int yy = b.getY() - this.getY();
+        return xx * xx + yy * yy;
+    }
+
+    public boolean isWithinDist(Point b, int maxDist){
+        return dist2(b) <= (maxDist * maxDist);
+    }
+
+    public Point getNextPoint(Point goal, int maxDist){
+        if(isWithinDist(goal, maxDist)){
+            return goal;
+        }
+        double ang = Math.atan2(goal.getY() - this.getY(), goal.getX() - this.getX());
+        return new Point(this.getX() + maxDist * Math.cos(ang), this.getY() + maxDist * Math.sin(ang));
+    }
 }

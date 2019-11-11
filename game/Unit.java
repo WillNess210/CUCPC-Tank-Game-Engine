@@ -1,5 +1,7 @@
 package game;
 
+import constants.UnitType;
+
 public class Unit extends Point{
     private int id, type, param1;
     private boolean actionUsedThisTurn;
@@ -43,6 +45,14 @@ public class Unit extends Point{
 
     public String getLogString(int owner){
         return owner + " " + this.getId() + " " + this.getType() + " " + this.getX() + " " + this.getY() + " " + this.getParam1();
+    }
+
+    // ACTION FUCNS
+
+    public void moveTowards(Point goal){
+        Point nextP = this.getNextPoint(goal, this.getType() ==  UnitType.ROVER ? UnitType.ROVER_MOVE_RANGE : UnitType.TANK_MOVE_RANGE);
+        this.setX(nextP.getX());
+        this.setY(nextP.getY());
     }
 
 }
