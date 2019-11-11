@@ -44,6 +44,6 @@ public class Point{
             return goal;
         }
         double ang = Math.atan2(goal.getY() - this.getY(), goal.getX() - this.getX());
-        return new Point(this.getX() + maxDist * Math.cos(ang), this.getY() + maxDist * Math.sin(ang));
+        return new Point((int)(this.getX() + maxDist * Math.cos(ang)),(int) (this.getY() + maxDist * Math.sin(ang)));
     }
 }

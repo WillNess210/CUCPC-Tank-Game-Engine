@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import constants.UnitType;
 import java.util.Random;
+import constants.ScoreInfo;
 
 public class Player{
     private int coins, id, load_counter;
@@ -66,6 +67,10 @@ public class Player{
 
     public void setCoins(int coins) {
         this.coins = coins;
+    }
+
+    public void addSiteIncome(){
+
     }
 
     public int getId() {

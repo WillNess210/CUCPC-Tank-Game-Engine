@@ -23,7 +23,7 @@ public class SampleJavaBot{
                 int unitY = in.nextInt();
                 int unitParam1 = in.nextInt();
             }
-            System.out.println("IDLE");
+            System.out.println("MOVE 0 500 250");
         }
     }
 }

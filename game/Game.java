@@ -62,6 +62,14 @@ public class Game{
                 target.moveTowards(movePoint);
             }
         }
+        // IF IN SITE, EARN $$
+        for(Unit un : players[botid].getUnits()){
+            for(Unit site : sites){
+                if(un.isWithinDist(site, UnitType.SITE_RADIUS)){
+                    un.addSiteIncome();
+                }
+            }
+        }
     }
 
     // this method is called to get the initialization string
@@ -130,5 +138,4 @@ public class Game{
     public void generateLog(){
         this.log.generateLogFile(this);
     }
-
 }

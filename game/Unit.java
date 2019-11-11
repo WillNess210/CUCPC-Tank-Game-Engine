@@ -1,6 +1,7 @@
 package game;
 
 import constants.UnitType;
+import constants.ScoreInfo;
 
 public class Unit extends Point{
     private int id, type, param1;
@@ -53,6 +54,10 @@ public class Unit extends Point{
         Point nextP = this.getNextPoint(goal, this.getType() ==  UnitType.ROVER ? UnitType.ROVER_MOVE_RANGE : UnitType.TANK_MOVE_RANGE);
         this.setX(nextP.getX());
         this.setY(nextP.getY());
+    }
+
+    public void addSiteIncome(){
+        this.setParam1(Math.min(this.getParam1() + ScoreInfo.SITE_EARNINGS, ScoreInfo.ROVER_MAX_STORAGE));
     }
 
 }
