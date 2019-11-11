@@ -6,15 +6,17 @@ public class SampleJavaBot{
         // INIT
         int myId = in.nextInt();
         int numSites = in.nextInt();
+        int siteX, siteY;
         for(int i = 0; i < numSites; i++){
-            int siteX = in.nextInt();
-            int siteY = in.nextInt();
+            siteX = in.nextInt();
+            siteY = in.nextInt();
         }
         // FOR EACH TURN
         while(true){
             int myCoins = in.nextInt();
             int opCoins = in.nextInt();
             int numUnits = in.nextInt();
+            int storage = -1;
             for(int i = 0; i < numUnits; i++){
                 int unitID = in.nextInt();
                 int unitOwner = in.nextInt();
@@ -22,8 +24,11 @@ public class SampleJavaBot{
                 int unitX = in.nextInt();
                 int unitY = in.nextInt();
                 int unitParam1 = in.nextInt();
+                if(unitOwner == myId && unitParam1 == 100){
+                    storage = 100;
+                }
             }
-            System.out.println("MOVE 0 500 250");
+            System.out.println(storage == 100 ? ("MOVE " + (myId == 0 ? 50 : 950) + " " + 250) : ("MOVE " + siteX + " " + siteY));
         }
     }
 }
