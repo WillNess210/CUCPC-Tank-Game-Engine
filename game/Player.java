@@ -69,10 +69,6 @@ public class Player{
         this.coins = coins;
     }
 
-    public void addSiteIncome(){
-
-    }
-
     public int getId() {
         return id;
     }
