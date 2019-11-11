@@ -59,5 +59,15 @@ public class Unit extends Point{
     public void addSiteIncome(){
         this.setParam1(Math.min(this.getParam1() + ScoreInfo.SITE_EARNINGS, ScoreInfo.ROVER_MAX_STORAGE));
     }
+    public int getStorage(){
+        return this.getParam1();
+    }
+    public void clearStorage(){
+        this.setParam1(0);
+    }
+
+    public boolean withinDepositBoundary(int owner){
+        return owner == 0 ? (this.getX() <= ScoreInfo.PLAYER_0_BASE_RIGHT_X) : (this.getX() >= ScoreInfo.PLAYER_1_BASE_LEFT_X);
+    }
 
 }

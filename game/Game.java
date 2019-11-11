@@ -3,17 +3,20 @@ package game;
 import java.util.Random;
 import constants.UnitType;
 import constants.ActionType;
+import constants.ScoreInfo;
 
 // THIS CLASS WILL HANDLE ALL GAME INFO (taking user input, parsing it to make sure it's correct, updating gamestate, then returning new strings to send)
 public class Game{
-    public static final int MAX_TURNS = 50;
+    public static final int MAX_TURNS = 200;
     private Player[] players;
     private Unit[] sites;
     private Random rand;
     public long mapSeed;
     public LogHandler log;
+    private boolean isOver;
 
     public Game(long mapSeed){
+        this.isOver = false;
         this.mapSeed = mapSeed;
         rand = new Random(mapSeed);
         System.out.println("init w/ seed: " + this.mapSeed);
@@ -68,6 +71,9 @@ public class Game{
                 if(un.isWithinDist(site, UnitType.SITE_RADIUS)){
                     un.addSiteIncome();
                 }
+                if(un.withinDepositBoundary(botid)){
+                    players[botid].depositCoins(un);
+                }
             }
         }
     }
@@ -105,12 +111,19 @@ public class Game{
 
     // when this method returns true, the game will stop playing. Suggestion: turn limit or when a player has won
     public boolean isGameOver(){
-        return false;
+        return this.isOver;
     }
 
     // return ID of winning bot, -1 when no winner has been established yet
     public int getWinner(){
-        return isGameOver() ? (players[0].getScore() == players[1].getScore() ? (players[0].getScore() > players[1].getScore() ? 0 : 1) : 2) : -1;
+        if(this.isGameOver() == false){
+            return -1;
+        }
+        int s0 = this.players[0].getScore(), s1 = this.players[1].getScore();
+        if(s0 == s1){
+            return 2;
+        }
+        return s0 > s1 ? 0 : 1;
     }
     public String getScores(){
         return players[0].getScore() + " " + players[1].getScore();
@@ -125,6 +138,10 @@ public class Game{
             toRet[i] = this.sites[i].getX() + " " + this.sites[i].getY();
         }
         return toRet;
+    }
+
+    public void finish(){
+        this.isOver = true;
     }
 
     public Player[] getPlayers(){

@@ -61,6 +61,7 @@ public class Engine{
             }
             game.updateLogHandler();
         }
+        game.finish();
         game.generateLog();
     }
     // CONFIG FUNCS

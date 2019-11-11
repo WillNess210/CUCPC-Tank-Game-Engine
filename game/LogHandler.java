@@ -10,10 +10,13 @@ import java.io.IOException;
 
 public class LogHandler{
     ArrayList<ArrayList<String>> turns;
+    ArrayList<String> scores;
     public LogHandler(){
         this.turns = new ArrayList<ArrayList<String>>();
+        this.scores = new ArrayList<String>();
     }
     public void addTurn(Game game){
+        // turns
         ArrayList<String> turn = new ArrayList<String>();
         for(Player ply : game.getPlayers()){
             for(Unit un : ply.getUnits()){
@@ -21,6 +24,8 @@ public class LogHandler{
             }
         }
         this.turns.add(turn);
+        // scores
+        this.scores.add(game.getScores());
     }
 
     public void generateLogFile(Game game){
@@ -36,6 +41,8 @@ public class LogHandler{
             writer.write(this.turns.size() + "\n");
             for(int i = 0; i < this.turns.size(); i++){
                 ArrayList<String> units = this.turns.get(i);
+                String scores = this.scores.get(i);
+                writer.write(scores + "\n");
                 writer.write(units.size() + "\n");
                 for(String unitLine : units){
                     writer.write(unitLine + "\n");

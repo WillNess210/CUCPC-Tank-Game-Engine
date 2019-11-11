@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-public class SampleJavaBot{
+public class SmartJavaBot{
     public static void main(String[] args){
         Scanner in = new Scanner(System.in);
         // INIT
         int myId = in.nextInt();
         int numSites = in.nextInt();
-        int siteX, siteY;
+        int siteX = 0, siteY = 0;
         for(int i = 0; i < numSites; i++){
             siteX = in.nextInt();
             siteY = in.nextInt();
@@ -28,7 +28,7 @@ public class SampleJavaBot{
                     storage = 100;
                 }
             }
-            System.out.println(storage == 100 ? ("MOVE " + (myId == 0 ? 50 : 950) + " " + 250) : ("MOVE " + siteX + " " + siteY));
+            System.out.println(storage == 100 ? ("MOVE 0 " + (myId == 0 ? 50 : 950) + " " + 250) : ("MOVE 0 " + siteX + " " + siteY));
         }
     }
 }

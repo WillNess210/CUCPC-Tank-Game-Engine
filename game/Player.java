@@ -68,6 +68,15 @@ public class Player{
     public void setCoins(int coins) {
         this.coins = coins;
     }
+    
+    public void addCoins(int coins){
+        this.setCoins(this.getCoins() + coins);
+    }
+
+    public void depositCoins(Unit un){
+        this.addCoins(un.getStorage());
+        un.clearStorage();
+    }
 
     public int getId() {
         return id;
