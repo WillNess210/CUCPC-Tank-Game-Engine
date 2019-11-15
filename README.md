@@ -52,3 +52,8 @@ Ex:
 ```
 SPAWN 0,SPAWN 0,MOVE 2 394 600,FIRE 3 400 450  
 ```
+
+
+## Example Calls
+java -jar tank-engine.jar StarterPythonBot StarterPythonBot
+java -jar tank-vis.jar replays/latest_replay.log
