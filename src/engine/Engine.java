@@ -58,7 +58,7 @@ public class Engine{
             System.out.println("TURN " + i);
             String[] toSend = new String[this.bots.length];
             for(int j = 0; j < this.bots.length; j++){
-                String result = bots[j].sendAndReceive(game.getStringToSendToBot(j), this.getTimelimitMs());
+                String result = bots[j].sendAndReceive(j, game.getStringToSendToBot(j), this.getTimelimitMs());
                 toSend[j] = result;
                 System.out.println("bot " + j + ":" + result);
             }

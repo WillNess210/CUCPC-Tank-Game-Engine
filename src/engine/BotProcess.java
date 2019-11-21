@@ -14,7 +14,7 @@ import java.io.IOException;
 import engine.constants.Language;
 
 public class BotProcess{
-    private InputStream processOut;
+    private InputStream processOut, processErr;
     private OutputStream processIn;
     private Process process;
     private Properties bot_config;
@@ -88,13 +88,13 @@ public class BotProcess{
             this.process = builder.start();
             this.processIn = process.getOutputStream();
             this.processOut = process.getInputStream();
-            
+            this.processErr = process.getErrorStream();
         } catch (IOException e){
             System.out.println(e.getMessage());
         }
     }
 
-    public String sendAndReceive(String dataToSend, long timeLimit){
+    public String sendAndReceive(int id, String dataToSend, long timeLimit){
         // SEND DATA
         try{
             OutputStreamWriter writer = new OutputStreamWriter(processIn, "UTF-8");
@@ -107,11 +107,20 @@ public class BotProcess{
         }
         // RECEIVE DATA
         BufferedReader programOutput = new BufferedReader(new InputStreamReader(this.processOut));
+        BufferedReader errorOutput = new BufferedReader(new InputStreamReader(this.processErr));
         long startTime = System.currentTimeMillis();
         String received = "";
         try{
             while(System.currentTimeMillis() - startTime <= timeLimit && (this.processOut.available() == 0 || (received = programOutput.readLine()) == null)){
                 //System.out.println("Waiting " + this.getBotName() + " " + (System.currentTimeMillis() - startTime) + " " + timeLimit);
+            }
+            String errRec = "";
+            while(errorOutput.ready()) {
+            	errRec = errorOutput.readLine();
+            	if(errRec == null || errRec.length() == 0) {
+            		break;
+            	}
+            	System.err.println(id + ": " + errRec);
             }
         } catch (IOException e){
             System.out.println(e.getMessage());
