@@ -11,7 +11,9 @@ import game.constants.ScoreInfo;
 public class Player{
     private int coins, id, load_counter;
     private Map<Integer, Unit> units;
+    private boolean errored;
     public Player(int id, Random r){
+    	this.errored = false;
         this.id = id;
         this.coins = ScoreInfo.STARTING_BALANCE;
         this.units = new HashMap<Integer, Unit>();
@@ -91,6 +93,15 @@ public class Player{
 
     public void setId(int id) {
         this.id = id;
+    }
+    public void setErrored(boolean val) {
+    	this.errored = val;
+    	if(val) {
+    		this.setCoins(-1);
+    	}
+    }
+    public boolean errored() {
+    	return this.errored;
     }
     
 }

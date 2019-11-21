@@ -49,10 +49,21 @@ public class Game{
     	String[][] commandsUnparsed = new String[numBots][];
     	Command[][] commands = new Command[numBots][];
     	for(int i = 0; i < numBots; i++) {
+    		// CHECKING FOR TIMEOUT
+    		if(resultsFromBot[i].equals("timeout")) {
+    			this.players[i].setErrored(true);
+    			return;
+    		}
+    		// CONTINUING ON
     		commandsUnparsed[i] = resultsFromBot[i].split(",");
     		commands[i] = new Command[commandsUnparsed[i].length];
     		for(int j = 0; j < commands[i].length; j++) {
     			commands[i][j] = new Command(commandsUnparsed[i][j]);
+    			if(commands[i][j].badCommand()) {
+    				this.players[i].setErrored(true);
+    				System.out.println("Received unparseable command from player " + i + ": \"" + commandsUnparsed[i][j] + "\".Killing bot");
+    				return;
+    			}
     		}
     	}
         // FIRE ACTIONS FIRST
@@ -144,7 +155,16 @@ public class Game{
     		players[j].addCoins(ScoreInfo.IDLE_EARNINGS);
     	}
     }
-
+    // checks for errored bots, returns id of errored bot, or 2 if all have errored out. -1 if no errors
+    public int checkForErroredBots() {
+    	boolean allErrored = true;
+    	int errorId = -1;
+    	for(int i = 0; i < this.players.length; i++) {
+    		allErrored &= this.players[i].errored();
+    		errorId = this.players[i].errored() ? i : errorId;
+    	}
+    	return allErrored ? 2 : errorId;
+    }
     // this method is called to get the initialization string
     public String getGameInit(int botid){
         String toReturn = botid + "\n";
@@ -218,7 +238,17 @@ public class Game{
     public void updateLogHandler(){
         this.log.addTurn(this);
     }
-
+    
+    public void errorOutPlayers() {
+    	for(int i = 0; i < this.players.length; i++) {
+    		this.errorOutPlayer(i);
+    	}
+    }
+    
+    public void errorOutPlayer(int id) {
+    	this.players[id].setErrored(true);
+    }
+    
     public void generateLog(){
     	this.log.generateLogFile(this);
         this.log.generateLogFile(this, "latest_replay");

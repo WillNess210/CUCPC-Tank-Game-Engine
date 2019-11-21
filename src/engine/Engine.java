@@ -63,10 +63,22 @@ public class Engine{
                 System.out.println("bot " + j + ":" + result);
             }
             game.updateBots(toSend);
+            int errorResp = game.checkForErroredBots();
+            if(errorResp != -1) {
+            	if(errorResp == 2) {
+            		game.errorOutPlayers();
+            	}else {
+            		game.errorOutPlayer(errorResp);
+            	}
+            	game.updateLogHandler();
+            	break;
+            }
             game.updateLogHandler();
+            
         }
         game.finish();
         game.generateLog();
+        System.out.println("Game Engine Finished Running. Check Log file for results.");
     }
     // CONFIG FUNCS
     public String getGameName(){

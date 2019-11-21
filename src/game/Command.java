@@ -4,26 +4,37 @@ import game.constants.ActionType;
 
 public class Command{
     private int type, param1, param2, param3;
+    private boolean error;
     public Command(String input){
+    	this.error = false;
         String[] args = input.split(" ");
+        if(args.length == 0) {
+        	this.error = true;
+        	return;
+        }
         String cmd = args[0];
-        if(cmd.equals("IDLE")){
-            this.type = ActionType.IDLE;
-        }else if(cmd.equals("SPAWN")){
-            this.type = ActionType.SPAWN;
-            this.param1 = Integer.parseInt(args[1]);
-        }else if(cmd.equals("MOVE")){
-            this.type = ActionType.MOVE;
-            this.param1 = Integer.parseInt(args[1]);
-            this.param2 = Integer.parseInt(args[2]);
-            this.param3 = Integer.parseInt(args[3]);
-        }else if(cmd.equals("FIRE")){
-            this.type = ActionType.FIRE;
-            this.param1 = Integer.parseInt(args[1]);
-            this.param2 = Integer.parseInt(args[2]);
-            this.param3 = Integer.parseInt(args[3]);
-        }else {
-        	this.type = -1;
+        try {
+	        if(cmd.equals("IDLE")){
+	            this.type = ActionType.IDLE;
+	        }else if(cmd.equals("SPAWN")){
+	            this.type = ActionType.SPAWN;
+	            this.param1 = Integer.parseInt(args[1]);
+	        }else if(cmd.equals("MOVE")){
+	            this.type = ActionType.MOVE;
+	            this.param1 = Integer.parseInt(args[1]);
+	            this.param2 = Integer.parseInt(args[2]);
+	            this.param3 = Integer.parseInt(args[3]);
+	        }else if(cmd.equals("FIRE")){
+	            this.type = ActionType.FIRE;
+	            this.param1 = Integer.parseInt(args[1]);
+	            this.param2 = Integer.parseInt(args[2]);
+	            this.param3 = Integer.parseInt(args[3]);
+	        }else {
+	        	this.type = -1;
+	        }
+        } catch (NumberFormatException e) {
+        	this.error = true;
+        	return;
         }
     }
 
@@ -72,5 +83,7 @@ public class Command{
     	}
     	return "COMMAND ERROR";
     }
-    
+    public boolean badCommand() {
+    	return this.type == -1 || this.error;
+    }
 }
