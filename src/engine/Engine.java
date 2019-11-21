@@ -39,12 +39,6 @@ public class Engine{
             //System.out.println("Compiled bot " + this.bots[i].getBotName());
             this.bots[i].start(this);
         }
-        try{
-            java.util.concurrent.TimeUnit.MILLISECONDS.sleep(this.getInitTime());
-        }catch(InterruptedException e){
-            System.out.println(e.getMessage());
-        }
-        
     }
     // RUN A GAME
     public void run(){
@@ -58,7 +52,7 @@ public class Engine{
             System.out.println("TURN " + i);
             String[] toSend = new String[this.bots.length];
             for(int j = 0; j < this.bots.length; j++){
-                String result = bots[j].sendAndReceive(j, game.getStringToSendToBot(j), this.getTimelimitMs());
+                String result = bots[j].sendAndReceive(j, game.getStringToSendToBot(j), i == 0 ? this.getInitTime() + this.getTimelimitMs(): this.getTimelimitMs());
                 toSend[j] = result;
                 System.out.println("bot " + j + ":" + result);
             }
@@ -78,6 +72,7 @@ public class Engine{
         }
         game.finish();
         game.generateLog();
+        this.killBots();
         System.out.println("Game Engine Finished Running. Check Log file for results.");
     }
     // CONFIG FUNCS
@@ -95,5 +90,10 @@ public class Engine{
     }
     public String getPythonCommand() {
     	return engine_config.getProperty("python_command").trim();
+    }
+    public void killBots() {
+    	for(BotProcess b : this.bots) {
+    		b.close();
+    	}
     }
 }

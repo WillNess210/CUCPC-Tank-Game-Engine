@@ -155,4 +155,7 @@ public class BotProcess{
     public int getBotLanguage(){
         return Integer.parseInt(this.bot_config.getProperty("bot_language"));
     }
+    public void close() {
+    	this.process.destroy();
+    }
 }

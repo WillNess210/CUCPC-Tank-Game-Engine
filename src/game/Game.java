@@ -25,12 +25,22 @@ public class Game{
             players[i] = new Player(i, rand);
         }
         
-        sites = new Unit[2 + rand.nextInt(2) * 2];
+        sites = new Unit[4 + rand.nextInt(3) * 2];
         for(int i = 0; i < sites.length; i += 2){
-            int nX = 300 + rand.nextInt(401);
-            int nY = 100 + rand.nextInt(300);
-            sites[i] = new Unit(i, UnitType.SITE, nX, nY);
-            sites[i + 1] = new Unit(i + 1, UnitType.SITE, 1000 - nX, 500 - nY);
+            Point tp = new Point(-1, -1);
+            boolean validPoint = false;
+            while(validPoint == false) {
+            	int nX = 300 + rand.nextInt(401);
+                int nY = 100 + rand.nextInt(300);
+                tp.setX(nX);
+                tp.setY(nY);
+            	validPoint = true;
+            	for(int j = 0; j < i && validPoint; j++) {
+            		validPoint &= !tp.isWithinDist(sites[j], 75);
+            	}
+            }
+            sites[i] = new Unit(i, UnitType.SITE, tp.getX(), tp.getY());
+            sites[i + 1] = new Unit(i + 1, UnitType.SITE, 1000 - tp.getX(), 500 - tp.getY());
         }
 
         this.log = new LogHandler();
