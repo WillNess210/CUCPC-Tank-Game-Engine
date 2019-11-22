@@ -5,9 +5,13 @@ The game is played till the end of 200 turns, or until a bot errors or times out
 
 ## Map
 1000 by 500 units
+
 Player 0 (left, blue) has a home base of the left 100 units. (0 <= x <= 100)
+
 Player 1 (right, red) has a home base of the right 100 units (900 <= x <= 1000)
+
 Units inside their home bases cannot be killed.
+
 Each map will have randomly generated Sites. There will always be either 4, 6, or 8 sites that are generated in pairs and mirrored across the center of the map.
 
 ## Rules / Units
