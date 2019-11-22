@@ -30,8 +30,8 @@ public class Player{
         return units.get(id);
     }
     public boolean spawnUnit(int type, Random r){
-        int nx = 25 + r.nextInt(51) + (this.id == 0 ? 0 : 900);
-        int ny = 25 + r.nextInt(451);
+        int nx = this.id == 0 ? 50 : 950;//25 + r.nextInt(51) + (this.id == 0 ? 0 : 900);
+        int ny = 250;//25 + r.nextInt(451);
         this.addUnit(type, nx, ny);
         return true;
     }
