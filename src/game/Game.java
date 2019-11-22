@@ -4,6 +4,7 @@ import java.util.Random;
 import game.constants.UnitType;
 import game.constants.ActionType;
 import game.constants.ScoreInfo;
+import game.constants.Map;
 
 // THIS CLASS WILL HANDLE ALL GAME INFO (taking user input, parsing it to make sure it's correct, updating gamestate, then returning new strings to send)
 public class Game{
@@ -40,7 +41,7 @@ public class Game{
             	}
             }
             sites[i] = new Unit(i, UnitType.SITE, tp.getX(), tp.getY());
-            sites[i + 1] = new Unit(i + 1, UnitType.SITE, 1000 - tp.getX(), 500 - tp.getY());
+            sites[i + 1] = new Unit(i + 1, UnitType.SITE, Map.WIDTH - tp.getX(), Map.HEIGHT - tp.getY());
         }
 
         this.log = new LogHandler();
