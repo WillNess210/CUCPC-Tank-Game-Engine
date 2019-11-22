@@ -3,6 +3,11 @@ Tank Game is played on a 1000 by 500 unit map with two players. Each player is c
 
 The game is played till the end of 200 turns, or until a bot errors or times out (whicever comes first). The winner is dictated by whoever owns more "coins" at the end of the game. If your bot errors or times out, you will lose.
 
+This game supports the following languages:
+1. Python 3.6.8
+2. Java 1.8.0_231
+3. C++ 11
+
 ## Map
 1000 by 500 units
 
