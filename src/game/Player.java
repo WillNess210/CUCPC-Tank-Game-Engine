@@ -7,6 +7,7 @@ import java.util.Map;
 import game.constants.UnitType;
 import java.util.Random;
 import game.constants.ScoreInfo;
+import game.constants.GameMap;
 
 public class Player{
     private int coins, id, load_counter;
@@ -30,8 +31,8 @@ public class Player{
         return units.get(id);
     }
     public boolean spawnUnit(int type, Random r){
-        int nx = this.id == 0 ? 50 : 950;//25 + r.nextInt(51) + (this.id == 0 ? 0 : 900);
-        int ny = 250;//25 + r.nextInt(451);
+        int nx = this.id == 0 ? 50 : GameMap.WIDTH-50;//25 + r.nextInt(51) + (this.id == 0 ? 0 : 900);
+        int ny = (int)GameMap.HEIGHT/2;//25 + r.nextInt(451);
         this.addUnit(type, nx, ny);
         return true;
     }

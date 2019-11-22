@@ -4,7 +4,7 @@ import java.util.Random;
 import game.constants.UnitType;
 import game.constants.ActionType;
 import game.constants.ScoreInfo;
-import game.constants.Map;
+import game.constants.GameMap;
 
 // THIS CLASS WILL HANDLE ALL GAME INFO (taking user input, parsing it to make sure it's correct, updating gamestate, then returning new strings to send)
 public class Game{
@@ -31,8 +31,8 @@ public class Game{
             Point tp = new Point(-1, -1);
             boolean validPoint = false;
             while(validPoint == false) {
-            	int nX = 300 + rand.nextInt(401);
-                int nY = 100 + rand.nextInt(300);
+            	int nX = 915 + rand.nextInt(401);
+                int nY = 609 + rand.nextInt(300);
                 tp.setX(nX);
                 tp.setY(nY);
             	validPoint = true;
@@ -41,7 +41,7 @@ public class Game{
             	}
             }
             sites[i] = new Unit(i, UnitType.SITE, tp.getX(), tp.getY());
-            sites[i + 1] = new Unit(i + 1, UnitType.SITE, Map.WIDTH - tp.getX(), Map.HEIGHT - tp.getY());
+            sites[i + 1] = new Unit(i + 1, UnitType.SITE, GameMap.WIDTH - tp.getX(), GameMap.HEIGHT - tp.getY());
         }
 
         this.log = new LogHandler();

@@ -2,7 +2,7 @@ package game;
 
 import game.constants.UnitType;
 import game.constants.ScoreInfo;
-import game.constants.Map;
+import game.constants.GameMap;
 
 public class Unit extends Point{
     private int id, type, param1;
@@ -91,7 +91,7 @@ public class Unit extends Point{
     }
     
     public boolean isOutOfBounds() {
-    	return this.getX() < 0 || this.getX() >= Map.WIDTH || this.getY() < 0 || this.getY() >= Map.HEIGHT;
+    	return this.getX() < 0 || this.getX() >= GameMap.WIDTH || this.getY() < 0 || this.getY() >= GameMap.HEIGHT;
     }
     
     public void newTurnUpdate() {
