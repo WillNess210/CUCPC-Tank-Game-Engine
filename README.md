@@ -6,7 +6,7 @@ The game is played till the end of 200 turns, or until a bot errors or times out
 This game supports the following languages:
 1. Python 3.6.8
 2. Java 1.8.0_231
-3. C++ 11
+3. C++ 17
 
 ## Map
 1000 by 500 units
