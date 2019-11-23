@@ -84,10 +84,6 @@ public class DeploymentArea{
     	return this.deployArea.contains(p.getX(), p.getY());
     }
     
-    public boolean contains(Unit u) {
-    	return this.deployArea.contains(u.getX(), u.getY());
-    }
-    
     public Point getCenter() {
     	Rectangle rect = this.deployArea.getBounds();
     	return new Point((int)rect.getCenterX(), (int)rect.getCenterY());
