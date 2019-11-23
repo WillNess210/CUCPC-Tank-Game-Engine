@@ -7,22 +7,24 @@ import java.util.Map;
 import game.constants.UnitType;
 import java.util.Random;
 import game.constants.ScoreInfo;
-import game.constants.GameMap;
 
 public class Player{
     private int coins, id, load_counter;
     private Map<Integer, Unit> units;
     private boolean errored;
-    public Player(int id, Random r){
+    private DeploymentArea deploymentArea;
+    
+    public Player(int id, DeploymentArea deploymentArea, Random r){
     	this.errored = false;
         this.id = id;
+        this.deploymentArea = deploymentArea;
         this.coins = ScoreInfo.STARTING_BALANCE;
         this.units = new HashMap<Integer, Unit>();
         this.load_counter = 0;
         this.starterUnits(r);
     }
     public void starterUnits(Random r){
-        this.spawnUnit(0, r);
+        this.spawnUnit(0, this.deploymentArea.getCenter());
     }
     public List<Unit> getUnits(){
         return new ArrayList<Unit>(this.units.values());
@@ -30,10 +32,8 @@ public class Player{
     public Unit getUnit(int id){
         return units.get(id);
     }
-    public boolean spawnUnit(int type, Random r){
-        int nx = this.id == 0 ? 50 : GameMap.WIDTH-50;//25 + r.nextInt(51) + (this.id == 0 ? 0 : 900);
-        int ny = (int)GameMap.HEIGHT/2;//25 + r.nextInt(451);
-        this.addUnit(type, nx, ny);
+    public boolean spawnUnit(int type, Point spawnPoint){
+        this.addUnit(type, spawnPoint.getX(), spawnPoint.getY());
         return true;
     }
     public boolean addUnit(int type, int x, int y){

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import game.Game;
-import game.constants.GameMap;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -50,7 +49,7 @@ public class LogHandler{
             BufferedWriter writer = new BufferedWriter(new FileWriter("replays/" + replay_name + ".log"));
             writer.write(game.getWinner() + "\n");
             writer.write(game.getScores() + "\n");
-            writer.write(GameMap.WIDTH + " " + GameMap.HEIGHT + "\n");
+            writer.write(game.getWidth() + " " + game.getHeight() + " " + game.getDeployment() + "\n");
             String[] sites = game.getSitesStrings();
             writer.write(sites.length + "\n");
             for(String siteLine : sites){

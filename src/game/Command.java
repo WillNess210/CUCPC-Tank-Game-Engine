@@ -19,6 +19,8 @@ public class Command{
 	        }else if(cmd.equals("SPAWN")){
 	            this.type = ActionType.SPAWN;
 	            this.param1 = Integer.parseInt(args[1]);
+	            this.param2 = Integer.parseInt(args[2]);
+	            this.param3 = Integer.parseInt(args[3]);
 	        }else if(cmd.equals("MOVE")){
 	            this.type = ActionType.MOVE;
 	            this.param1 = Integer.parseInt(args[1]);

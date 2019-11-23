@@ -1,35 +1,51 @@
 package engine;
-import java.io.IOException;
+
 import java.util.Properties;
 import java.util.Random;
 import game.Game;
+import game.constants.MapInfo;
 
 public class Engine{
     // ENGINE VARIABLES
     private long mapSeed;
+    private int mapWidth, mapHeight;
+    private int deploymentType;
     private String[] botFilepaths;
     private Properties config, engine_config;
     private BotProcess[] bots;
     private Game game;
 
     // CONSTRUCTORS
-    public Engine(Properties engine_config, Properties config, String[] botFilepaths){
+    public Engine(Properties engine_config, Properties config, int mapSize, int deploymentType, String[] botFilepaths){
     	this.engine_config = engine_config;
         this.config = config;
         this.botFilepaths = botFilepaths;
         Random r = new Random();
         this.mapSeed = r.nextLong();
+        if (mapSize < 0)
+        	mapSize = r.nextInt(3);
+        if (mapSize == 0) {
+        	this.mapWidth = MapInfo.smallWidth;
+        	this.mapHeight = MapInfo.defaultHeight;
+        }
+        else if (mapSize == 1) {
+        	this.mapWidth = MapInfo.mediumWidth;
+        	this.mapHeight = MapInfo.defaultHeight;
+        }
+        else if (mapSize == 2) {
+        	this.mapWidth = MapInfo.largeWidth;
+        	this.mapHeight = MapInfo.defaultHeight;
+        }
+
+        if (deploymentType < 0)
+        	this.deploymentType = r.nextInt(6);
+        else
+        	this.deploymentType = deploymentType;
+
         this.bots = new BotProcess[this.getNumPlayers()];
-        this.game = new Game(this.mapSeed);
+        this.game = new Game(this.mapSeed, this.mapWidth, this.mapHeight, this.deploymentType);
     }
-    public Engine(Properties engine_config, Properties config, String[] botFilepaths, long mapSeed){
-    	this.engine_config = engine_config;
-        this.config = config;
-        this.botFilepaths = botFilepaths;
-        this.mapSeed = mapSeed;
-        this.bots = new BotProcess[this.getNumPlayers()];
-        this.game = new Game(this.mapSeed);
-    }
+   
 
     // STARTUP STUFF
     public void init(){

@@ -4,7 +4,6 @@ import java.util.Random;
 import game.constants.UnitType;
 import game.constants.ActionType;
 import game.constants.ScoreInfo;
-import game.constants.GameMap;
 
 // THIS CLASS WILL HANDLE ALL GAME INFO (taking user input, parsing it to make sure it's correct, updating gamestate, then returning new strings to send)
 public class Game{
@@ -15,15 +14,19 @@ public class Game{
     public long mapSeed;
     public LogHandler log;
     private boolean isOver;
+    private GameMap map;
+    private int deploymentType;
 
-    public Game(long mapSeed){
+    public Game(long mapSeed, int width, int height, int deploymentType){
         this.isOver = false;
         this.mapSeed = mapSeed;
+        this.deploymentType = deploymentType;
         rand = new Random(mapSeed);
         System.out.println("init w/ seed: " + this.mapSeed);
         players = new Player[2];
+        this.map = new GameMap(width, height, deploymentType, players.length, rand);
         for(int i = 0; i < players.length; i++){
-            players[i] = new Player(i, rand);
+            players[i] = new Player(i, this.map.getDeploymentArea(i), rand);
         }
         
         sites = new Unit[4 + rand.nextInt(3) * 2];
@@ -41,7 +44,7 @@ public class Game{
             	}
             }
             sites[i] = new Unit(i, UnitType.SITE, tp.getX(), tp.getY());
-            sites[i + 1] = new Unit(i + 1, UnitType.SITE, GameMap.WIDTH - tp.getX(), GameMap.HEIGHT - tp.getY());
+            sites[i + 1] = new Unit(i + 1, UnitType.SITE, this.map.getWidth() - tp.getX(), this.map.getHeight() - tp.getY());
         }
 
         this.log = new LogHandler();
@@ -88,7 +91,7 @@ public class Game{
 	                    // CHECK EVERY OPPONENT, IF THEY ARE WITHIN TANK_EXPLOSION_RADIUS UNITS, MARK THEM TO DIE
 	                	int opId = j == 0 ? 1 : 0;
 	                	for(Unit opp : players[opId].getUnits()) {
-	                		if(!ScoreInfo.WITHIN_DEPOSIT_BOUDARY(opp, opId) && opp.dist(hitPoint) <= UnitType.TANK_EXPLOSION_RADIUS) {
+	                		if(!this.map.getDeploymentArea(opId).contains(opp) && opp.dist(hitPoint) <= UnitType.TANK_EXPLOSION_RADIUS) {
 	                			opp.hasBeenHit = true;
 	                		}
 	                	}
@@ -118,7 +121,7 @@ public class Game{
 	                	target.action();
 		                Point movePoint = new Point(com.getParam2(), com.getParam3());
 		                target.moveTowards(movePoint);
-		                if(target.isOutOfBounds()) {
+		                if(this.map.isOutOfBounds(target)) {
 		                	players[j].removeUnit(target);
 		                }
 	                }
@@ -132,7 +135,7 @@ public class Game{
 	                if(un.isWithinDist(site, UnitType.SITE_RADIUS)){
 	                    un.addSiteIncome();
 	                }
-	                if(un.withinDepositBoundary(j)){
+	                if(this.map.getDeploymentArea(players[j].getId()).contains(un)){
 	                    players[j].depositCoins(un);
 	                }
 	            }
@@ -155,8 +158,9 @@ public class Game{
     		            coins = ScoreInfo.TANK_COST;
     		        }
     				players[j].subtractCoins(coins);
-    				players[j].spawnUnit(com.getParam1(), this.rand);
-    				System.out.println("Spawned a " + com.getParam1() + " for player " + j);
+    				Point spawnPoint = new Point(com.getParam2(), com.getParam3());
+    				players[j].spawnUnit(com.getParam1(), spawnPoint);
+    				System.out.println("Spawned a " + com.getParam1() + " for player " + j + " at" + com.getParam2() + " " + com.getParam3());
     			}
     		}
     	}
@@ -179,7 +183,9 @@ public class Game{
     // this method is called to get the initialization string
     public String getGameInit(int botid){
         String toReturn = botid + "\n";
-        toReturn += this.sites.length;
+        toReturn += this.map.getWidth() + " " + this.map.getHeight() + "\n";
+        toReturn += this.sites.length + " " + this.deploymentType + "\n";
+        toReturn += this.map.getDeploymentArea(botid).getCenter().getX() + " " + this.map.getDeploymentArea(botid).getCenter().getY();
         for(int i = 0; i < this.sites.length; i++){
             toReturn += "\n" + this.sites[i].getX() + " " + this.sites[i].getY();
         }
@@ -263,5 +269,16 @@ public class Game{
     public void generateLog(){
     	this.log.generateLogFile(this);
         this.log.generateLogFile(this, "latest_replay");
+    }
+    
+    public int getWidth() {
+    	return map.getWidth();
+    }
+    
+    public int getHeight() {
+    	return map.getHeight();
+    }
+    public int getDeployment() {
+    	return this.deploymentType;
     }
 }

@@ -2,7 +2,6 @@ package game;
 
 import game.constants.UnitType;
 import game.constants.ScoreInfo;
-import game.constants.GameMap;
 
 public class Unit extends Point{
     private int id, type, param1;
@@ -81,17 +80,9 @@ public class Unit extends Point{
     public void clearStorage(){
         this.setParam1(0);
     }
-
-    public boolean withinDepositBoundary(int owner){
-        return owner == 0 ? (this.getX() <= ScoreInfo.PLAYER_0_BASE_RIGHT_X) : (this.getX() >= ScoreInfo.PLAYER_1_BASE_LEFT_X);
-    }
     
     public int getPurchaseCost() {
     	return this.getType() == 0 ? 25 : this.getType() == 1 ? 75 : -1;
-    }
-    
-    public boolean isOutOfBounds() {
-    	return this.getX() < 0 || this.getX() >= GameMap.WIDTH || this.getY() < 0 || this.getY() >= GameMap.HEIGHT;
     }
     
     public void newTurnUpdate() {
