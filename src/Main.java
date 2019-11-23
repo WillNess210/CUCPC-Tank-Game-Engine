@@ -24,15 +24,12 @@ public class Main{
             for (String arg : args) {
         		if (arg.equals("-S")) {
         			mapSize = 0;
-        		}
-        		else if (arg.equals("-M")) {
+        		}else if (arg.equals("-M")) {
         			mapSize = 1;
-        		}
-        		else if (arg.equals("-L")) {
+        		}else if (arg.equals("-L")) {
         			mapSize = 2;
         		}
         		break;
-
             }
             bots[0] = args[args.length-2];
             bots[1] = args[args.length-1];
