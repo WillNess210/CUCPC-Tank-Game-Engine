@@ -166,9 +166,9 @@ public class Game{
     // this method is called to get the initialization string
     public String getGameInit(int botid){
         String toReturn = botid + "\n";
-        toReturn += this.map.getWidth() + " " + this.map.getHeight() + "\n";
-        toReturn += this.map.getSites().length + " " + this.deploymentType + "\n";
-        toReturn += this.map.getDeploymentArea(botid).getCenter().getX() + " " + this.map.getDeploymentArea(botid).getCenter().getY();
+        toReturn += this.map.getWidth() + " " + this.map.getHeight() + " " + this.deploymentType + "\n";
+        toReturn += this.map.getDeploymentArea(botid).getCenter().getX() + " " + this.map.getDeploymentArea(botid).getCenter().getY() + "\n";
+        toReturn += this.map.getSites().length;
         for(int i = 0; i < this.map.getSites().length; i++){
             toReturn += "\n" + this.map.getSites()[i].getX() + " " + this.map.getSites()[i].getY();
         }

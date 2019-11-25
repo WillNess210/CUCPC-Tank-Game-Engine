@@ -10,7 +10,7 @@ public class DeploymentArea{
 
     public DeploymentArea(int deploymentType, int mapWidth, int mapHeight, int ownerId){
     	this.ownerId = ownerId;
-    	if (deploymentType == 1) {
+    	if (deploymentType == 0) {
     		if (ownerId == 0) {
 	    		int[] px = new int[]{0, 305, (int)(mapWidth/2)-229, 305, 0};
 	            int[] py = new int[]{0, 0, (int)mapHeight/2, mapHeight, mapHeight};
@@ -22,7 +22,7 @@ public class DeploymentArea{
 	    		this.deployArea = new Area(new Polygon(px, py, 5));
     		}
     	}
-    	else if (deploymentType == 2) {
+    	else if (deploymentType == 1) {
     		if (ownerId == 0) {
     			this.deployArea = new Area(new Rectangle(0, 0, mapWidth, (int)mapHeight/2-305));
     		}
@@ -30,7 +30,7 @@ public class DeploymentArea{
     			this.deployArea = new Area(new Rectangle(0, mapHeight-305, mapWidth, (int)mapHeight/2-305));
     		}
     	}
-    	else if (deploymentType == 3) {
+    	else if (deploymentType == 2) {
     		Ellipse2D center = new Ellipse2D.Double((int)mapWidth/2-229, (int)mapHeight/2-229, 457, 457);
     		if (ownerId == 0) {
 	    		Rectangle part1 = new Rectangle(0, 0, (int)mapWidth/2, (int)mapHeight/2);
@@ -43,7 +43,7 @@ public class DeploymentArea{
 	    		this.deployArea.subtract(new Area(center));
     		}
     	}
-    	else if (deploymentType == 4) {
+    	else if (deploymentType == 3) {
     		if (ownerId == 0) {
     			this.deployArea = new Area(new Rectangle(0, 0, (int)(mapWidth/2)-305, mapHeight));
     		}
@@ -51,7 +51,7 @@ public class DeploymentArea{
     			this.deployArea = new Area(new Rectangle((int)mapWidth/2+305, 0, (int)(mapWidth/2)-305, mapHeight));
     		}
     	}
-    	else if (deploymentType == 5) {
+    	else if (deploymentType == 4) {
     		if (ownerId == 0) {
     			int[] px = new int[]{0, mapWidth, mapWidth, (int)(mapWidth/2), 0};
                 int[] py = new int[]{0, 0, 152, (int)(mapHeight/2)-229, 152};
@@ -64,7 +64,7 @@ public class DeploymentArea{
     		}
     		
     	}
-    	else if (deploymentType == 6) {
+    	else if (deploymentType == 5) {
     		if (ownerId == 0) {
     			int[] px = new int[]{0, mapWidth-305, 0};
                 int[] py = new int[]{305, mapHeight, mapHeight};
