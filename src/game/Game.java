@@ -9,7 +9,6 @@ import game.constants.ScoreInfo;
 public class Game{
     public static final int MAX_TURNS = 200;
     private Player[] players;
-    private Unit[] sites;
     private Random rand;
     public long mapSeed;
     public LogHandler log;
@@ -29,23 +28,7 @@ public class Game{
             players[i] = new Player(i, this.map.getDeploymentArea(i), rand);
         }
         
-        sites = new Unit[4 + rand.nextInt(3) * 2];
-        for(int i = 0; i < sites.length; i += 2){
-            Point tp = new Point(-1, -1);
-            boolean validPoint = false;
-            while(validPoint == false) {
-            	int nX = 915 + rand.nextInt(401);
-                int nY = 609 + rand.nextInt(300);
-                tp.setX(nX);
-                tp.setY(nY);
-            	validPoint = true;
-            	for(int j = 0; j < i && validPoint; j++) {
-            		validPoint &= !tp.isWithinDist(sites[j], 75);
-            	}
-            }
-            sites[i] = new Unit(i, UnitType.SITE, tp.getX(), tp.getY());
-            sites[i + 1] = new Unit(i + 1, UnitType.SITE, this.map.getWidth() - tp.getX(), this.map.getHeight() - tp.getY());
-        }
+        
 
         this.log = new LogHandler();
     }
@@ -131,7 +114,7 @@ public class Game{
         // IF IN SITE, EARN $$
     	for(int j = 0; j < numBots; j++) {
 	        for(Unit un : players[j].getUnits()){
-	            for(Unit site : sites){
+	            for(Unit site : this.map.getSites()){
 	                if(un.isWithinDist(site, UnitType.SITE_RADIUS)){
 	                    un.addSiteIncome();
 	                }
@@ -184,10 +167,10 @@ public class Game{
     public String getGameInit(int botid){
         String toReturn = botid + "\n";
         toReturn += this.map.getWidth() + " " + this.map.getHeight() + "\n";
-        toReturn += this.sites.length + " " + this.deploymentType + "\n";
+        toReturn += this.map.getSites().length + " " + this.deploymentType + "\n";
         toReturn += this.map.getDeploymentArea(botid).getCenter().getX() + " " + this.map.getDeploymentArea(botid).getCenter().getY();
-        for(int i = 0; i < this.sites.length; i++){
-            toReturn += "\n" + this.sites[i].getX() + " " + this.sites[i].getY();
+        for(int i = 0; i < this.map.getSites().length; i++){
+            toReturn += "\n" + this.map.getSites()[i].getX() + " " + this.map.getSites()[i].getY();
         }
         return toReturn;
     }
@@ -237,9 +220,9 @@ public class Game{
     }
 
     public String[] getSitesStrings(){
-        String[] toRet = new String[this.sites.length];
+        String[] toRet = new String[this.map.getSites().length];
         for(int i = 0; i < toRet.length; i++){
-            toRet[i] = this.sites[i].getX() + " " + this.sites[i].getY();
+            toRet[i] = this.map.getSites()[i].getX() + " " + this.map.getSites()[i].getY();
         }
         return toRet;
     }

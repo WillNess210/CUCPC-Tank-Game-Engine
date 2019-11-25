@@ -82,7 +82,7 @@ public class Unit extends Point{
     }
     
     public int getPurchaseCost() {
-    	return this.getType() == 0 ? 25 : this.getType() == 1 ? 75 : -1;
+    	return this.getType() == 0 ? ScoreInfo.ROVER_COST : this.getType() == 1 ? ScoreInfo.TANK_COST : -1;
     }
     
     public void newTurnUpdate() {

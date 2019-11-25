@@ -21,9 +21,9 @@ public class Player{
         this.coins = ScoreInfo.STARTING_BALANCE;
         this.units = new HashMap<Integer, Unit>();
         this.load_counter = 0;
-        this.starterUnits(r);
+        this.starterUnits();
     }
-    public void starterUnits(Random r){
+    public void starterUnits(){
         this.spawnUnit(0, this.deploymentArea.getCenter());
     }
     public List<Unit> getUnits(){

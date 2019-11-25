@@ -31,17 +31,16 @@ public class DeploymentArea{
     		}
     	}
     	else if (deploymentType == 3) {
+    		Ellipse2D center = new Ellipse2D.Double((int)mapWidth/2-229, (int)mapHeight/2-229, 457, 457);
     		if (ownerId == 0) {
 	    		Rectangle part1 = new Rectangle(0, 0, (int)mapWidth/2, (int)mapHeight/2);
-	    		Ellipse2D part2 = new Ellipse2D.Double((int)mapWidth/2, (int)mapHeight/2, 229, 229);
 	    		this.deployArea = new Area(part1);
-	    		this.deployArea.subtract(new Area(part2));
+	    		this.deployArea.subtract(new Area(center));
     		}
     		else if (ownerId == 1) {
     			Rectangle part1 = new Rectangle((int)mapWidth/2, (int)mapHeight/2, (int)mapWidth/2, (int)mapHeight/2);
-	    		Ellipse2D part2 = new Ellipse2D.Double((int)mapWidth/2, (int)mapHeight/2, 229, 229);
 	    		this.deployArea = new Area(part1);
-	    		this.deployArea.subtract(new Area(part2));
+	    		this.deployArea.subtract(new Area(center));
     		}
     	}
     	else if (deploymentType == 4) {
