@@ -128,12 +128,14 @@ public class Game{
     	for(int j = 0; j < numBots; j++) {
 	        for(Unit un : players[j].getUnits()){
 	            for(Unit site : sites){
-	                if(un.isWithinDist(site, UnitType.SITE_RADIUS)){
-	                    un.addSiteIncome();
-	                }
-	                if(un.withinDepositBoundary(j)){
-	                    players[j].depositCoins(un);
-	                }
+					if(un.getType() == UnitType.ROVER){
+						if(un.isWithinDist(site, UnitType.SITE_RADIUS)){
+							un.addSiteIncome();
+						}
+						if(un.withinDepositBoundary(j)){
+							players[j].depositCoins(un);
+						}
+					}
 	            }
 	        }
     	}
