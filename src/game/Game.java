@@ -143,11 +143,6 @@ public class Game{
     	for(int j = 0; j < numBots; j++) {
     		for(int i = 0; i < commands[j].length; i++) {
     			Command com = commands[j][i];
-    			if(com.getType() == ActionType.SPAWN) {
-        			System.out.println(com.toString());
-        			System.out.println(players[j].getCoins());
-        			System.out.println(players[j].canAffordUnit(com.getParam1()));
-    			}
     			if(com.getType() == ActionType.SPAWN && (com.getParam1() == 0 || com.getParam1() == 1) && players[j].canAffordUnit(com.getParam1())) {
     				int coins = -1;
     				if(com.getParam1() == UnitType.ROVER){
@@ -157,7 +152,6 @@ public class Game{
     		        }
     				players[j].subtractCoins(coins);
     				players[j].spawnUnit(com.getParam1(), this.rand);
-    				System.out.println("Spawned a " + com.getParam1() + " for player " + j);
     			}
     		}
     	}
