@@ -1,5 +1,4 @@
 package engine;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
 import game.Game;
@@ -48,7 +47,7 @@ public class Engine{
         }
         // run turns
         game.updateLogHandler();
-        for(int i = 0; i < this.game.MAX_TURNS && this.game.isGameOver() == false; i++){
+        for(int i = 0; i < Game.MAX_TURNS && this.game.isGameOver() == false; i++){
             System.out.println("TURN " + i);
             String[] toSend = new String[this.bots.length];
             for(int j = 0; j < this.bots.length; j++){

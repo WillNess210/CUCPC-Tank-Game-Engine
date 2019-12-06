@@ -70,7 +70,8 @@ public class Command{
         this.param3 = param3;
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
     	switch(this.getType()) {
     		case ActionType.SPAWN:
     			return "SPAWN " + this.getParam1();

@@ -55,7 +55,8 @@ public class Unit extends Point{
     	return this.actionUsedThisTurn;
     }
 
-    public double dist(Point b){
+    @Override
+	public double dist(Point b){
         return Math.hypot(b.getX() - this.getX(), b.getY() - this.getY());
     }
 

@@ -22,16 +22,18 @@ public class BotProcess{
 
     public BotProcess(String filepath){
         // LOAD IN CONFIG
-        this.filepath = filepath;
+        this.filepath = filepath.trim();
         try{
-            File configFile = new File(filepath + "/bot_config.properties");
+            File configFile = new File(this.filepath + "/bot_config.properties");
+            System.out.println("Looking for config file in: " + configFile.getAbsolutePath());
             FileReader configFileReader = new FileReader(configFile);
             Properties config = new Properties();
             config.load(configFileReader);
             configFileReader.close();
             this.bot_config = config;
         } catch (FileNotFoundException ex){
-            System.out.println("Could not find 'bot_config.properties', looked at: " + filepath + "/bot_config.properties");
+            System.out.println("Could not find 'bot_config.properties'");
+            System.out.println(", looked at: " + this.filepath + "/bot_config.properties");
         } catch (IOException e){
             System.out.println(e.getMessage());
         }
