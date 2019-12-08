@@ -17,4 +17,5 @@ public class ScoreInfo{
     public static final int TANK_COST = 75;
     public static final int IDLE_EARNINGS = 1;
     public static final int STARTING_BALANCE = 0;
+    public static final int NUM_ROVERS_EARN_PER_SITE = 4;
 }

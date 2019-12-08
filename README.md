@@ -17,16 +17,18 @@ Player 1 (right, red) has a home base of the right 100 units (900 <= x <= 1000)
 
 Units inside their home bases cannot be killed.
 
-Each map will have randomly generated Sites. There will always be either 4, 6, or 8 sites that are generated in pairs and mirrored across the center of the map.
+Each map will have randomly generated Sites. There will always be either 4, 6, or 8 sites that are generated in pairs and mirrored across the center of the map. They have a radius of 30.
 
 ## Rules / Units
 Tank Game consists of two different kinds of units: Rovers, and Tanks. Each player can spawn their own Rover or Tank for a cost of coins, and each player starts with one Rover.
 
-Rovers are resource gathering units. They can move up to 75 units in any turn. Rovers have a storage capacity of 30 coins, and if they end a turn on a Site, they will add 5 coins to their storage. If a rover ends a turn on their home base, the coins in it's storage will be deposited to the players balance, and the rover's storage will be set back to 0. Rovers cost 25 coins to spawn. Rover's param1 value is their current storage value (read input section for more on param1).
+Rovers are resource gathering units. They can move up to 75 units in any turn. Rovers have a storage capacity of 30 coins, and if they end a turn on a Site, they will add 5 coins to their storage - however, a maximum of 4 rovers per turn can collect from a single site. If a rover ends a turn on their home base, the coins in it's storage will be deposited to the players balance, and the rover's storage will be set back to 0. Rovers cost 25 coins to spawn. Rover's param1 value is their current storage value (read input section for more on param1).
 
 Tanks are attacking units. They can move up to 50 units in any turn. Tanks can fire anywhere within a 75 unit radius, and their explosions have a radius of 10. If the center of an opposing unit falls within the explosion radius, that opposing unit will be removed from the game. Tanks have a fire cooldown of 10 turns. Tanks cost 75 coins to spawn. Tank's param1 value is how many turns they have to wait until they can fire again, a tank with a param1 value of 0 means they can shoot that turn.
 
 Units will always spawn in the center of their players home base (50, 250) for player 0 or (950, 250) for player 1.
+
+Each site can only be collected by 4 units per player per turn.
 
 ## Initilization Input
 At the start of each game, the engine will feed your bot the following information via the standard input stream:

@@ -1,5 +1,7 @@
 package game;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import game.constants.UnitType;
 import game.constants.ActionType;
@@ -124,21 +126,6 @@ public class Game{
 	            }
 	        }
     	}
-        // IF IN SITE, EARN $$
-    	for(int j = 0; j < numBots; j++) {
-	        for(Unit un : players[j].getUnits()){
-	            for(Unit site : sites){
-					if(un.getType() == UnitType.ROVER){
-						if(un.isWithinDist(site, UnitType.SITE_RADIUS)){
-							un.addSiteIncome();
-						}
-						if(un.withinDepositBoundary(j)){
-							players[j].depositCoins(un);
-						}
-					}
-	            }
-	        }
-    	}
     	// SPAWN ACTION NEXT
     	for(int j = 0; j < numBots; j++) {
     		for(int i = 0; i < commands[j].length; i++) {
@@ -154,6 +141,28 @@ public class Game{
     				players[j].spawnUnit(com.getParam1(), this.rand);
     			}
     		}
+    	}
+    	Map<Integer, Integer> earningsCounter = new HashMap<Integer, Integer>();
+        // IF IN SITE, EARN $$
+    	for(int j = 0; j < numBots; j++) {
+	        for(Unit un : players[j].getUnits()){
+	            for(Unit site : sites){
+					if(un.getType() == UnitType.ROVER){
+						int siteid = site.getId() + j * 1000;
+						if(un.isWithinDist(site, UnitType.SITE_RADIUS) && (!earningsCounter.containsKey(siteid) || earningsCounter.get(siteid) < ScoreInfo.NUM_ROVERS_EARN_PER_SITE)){
+							un.addSiteIncome();
+							if(earningsCounter.containsKey(siteid)) {
+								earningsCounter.put(siteid, earningsCounter.get(siteid) + 1);
+							}else {
+								earningsCounter.put(siteid, 1);
+							}
+						}
+						if(un.withinDepositBoundary(j)){
+							players[j].depositCoins(un);
+						}
+					}
+	            }
+	        }
     	}
     	
     	// ADD IDLE INCOME
