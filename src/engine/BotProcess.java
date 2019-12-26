@@ -24,6 +24,7 @@ public class BotProcess{
         // LOAD IN CONFIG
         this.filepath = filepath.trim();
         try{
+        	this.filepath = (new File(this.filepath)).getAbsolutePath();
             File configFile = new File(this.filepath + "/bot_config.properties");
             System.out.println("Looking for config file in: " + configFile.getAbsolutePath());
             FileReader configFileReader = new FileReader(configFile);
@@ -76,7 +77,10 @@ public class BotProcess{
         int langChoice = this.getBotLanguage();
         ProcessBuilder builder = null;
         if(langChoice == Language.JAVA){
-            builder = new ProcessBuilder("java", "-cp", this.filepath, this.getMainFileNameJavaCall());
+            builder = new ProcessBuilder("java", this.getMainFileNameJavaCall());
+            builder.directory(new File(this.filepath));
+            System.err.println("this.filepath: " + this.filepath);
+            System.err.println(builder.directory().toString());
         }else if(langChoice == Language.CPP){
             builder = new ProcessBuilder("./a.out");
             builder.directory(new File(this.filepath));

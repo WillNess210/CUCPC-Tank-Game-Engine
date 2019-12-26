@@ -18,11 +18,23 @@ public class Main{
             engine_config.load(configFile);
             ///configFileReader.close();
             // START UP ENGINE
-            Engine engine = new Engine(engine_config, config, args);
+            Engine engine;
+            if(args.length == 2) {
+            	engine = new Engine(engine_config, config, args);
+            }else if(args.length > 2){
+            	String[] botFilepaths = new String[2];
+            	botFilepaths[0] = args[0];
+            	botFilepaths[1] = args[1];
+            	long mapSeed = Long.parseLong(args[2]);
+            	engine = new Engine(engine_config, config, args, mapSeed);
+            }else {
+            	System.out.println("Jar call parameters not correct.");
+            	return;
+            }
             engine.init();
             engine.run();
         } catch (FileNotFoundException ex){
-            System.out.println("Could not find 'config.properties'");
+            System.out.println("Could not find 'engine_config.properties'");
         } catch (IOException e){
             System.out.println(e.getMessage());
         }
