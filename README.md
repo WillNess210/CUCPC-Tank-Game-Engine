@@ -89,6 +89,8 @@ Anything printed to the standard error stream will be printed out in the console
  ```
  java -jar bots/MyBot bots/OtherBot
 ```
+If you'd like to specify a specific map seed (printed out when you run a game) just add that seed on as the third parameter (ex: java -jar bots/MyBot bots/OtherBot 1234567)
+
 This will produce the following two replay files in a folder called replays/ that will be created in the same directory as your engine:
 ```
 latest_replay.log
